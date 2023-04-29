@@ -1,3 +1,5 @@
+using MediatR;
+
 namespace csv_project
 {
     public class Program
@@ -5,6 +7,8 @@ namespace csv_project
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddMediatR(typeof(Program).Assembly);
 
             // Add services to the container.
 

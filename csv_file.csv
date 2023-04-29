@@ -1,0 +1,4 @@
+Number,ClientCode,ClientName,OrderDate,ShipmentDate,Quantity,Confirmed,Value
+1,client1,clientName1,01/01/2023,01/04/2023,1,1,90.99
+2,client2,clientName2,01/02/2023,01/05/2023,0,1,90.99
+3,client3,clientName3,01/03/2023,,1,1,90.99
