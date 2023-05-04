@@ -15,20 +15,38 @@ public class CsvReadQueryValidator : AbstractValidator<CsvReadQuery>
         //rule for orderNumber
         RuleFor(x => x)
             .Must(x => x.FromWhen == null && x.ToWhen == null && !x.ClientCodes!.Any())
-            .When(x => !string.IsNullOrEmpty(x.OrderNumber))
+            .When(x => !string.IsNullOrEmpty(x.OrderNumber) )
             .WithMessage("If OrderNumber is provided, FromWhen, ToWhen and ClientCodes must be empty");
 
-        //rule for dates
+        //rules for dates
         RuleFor(x => x)
-            .Must(x => string.IsNullOrEmpty(x.OrderNumber) && x.ClientCodes!.Any())
+            .Must(x => string.IsNullOrEmpty(x.OrderNumber) && !x.ClientCodes!.Any())
             .When(x => x.FromWhen != null && x.ToWhen != null)
             .WithMessage("If Dates are provided, OrderNumber and ClientCoeds must be empty.");
+
+        RuleFor(x => x)
+            .Must(x => x.FromWhen != null)
+            .When(x => x.ToWhen != null)
+            .WithMessage("Fill fromWhen date.");
+
+        RuleFor(x => x)
+            .Must(x => x.ToWhen != null)
+            .When(x => x.FromWhen != null)
+            .WithMessage("Fill toWhen date.");
 
         //rule for clientCodes
         RuleFor(x => x)
             .Must(x => string.IsNullOrEmpty(x.OrderNumber) && x.FromWhen == null && x.ToWhen == null)
             .When(x => x.ClientCodes!.Count > 0)
             .WithMessage("If ClientCodes are provided, OrderNumber and Dates must be empty.");
+
+        //Rules for all
+        RuleFor(x => x)
+            .Must(x => !string.IsNullOrEmpty(x.OrderNumber) && x.FromWhen != null && x.ToWhen != null &&
+                       x.ClientCodes!.Any())
+            .When(x => !string.IsNullOrEmpty(x.OrderNumber) && x.FromWhen != null && x.ToWhen != null &&
+                       x.ClientCodes!.Any())
+            .WithMessage("Fill all fields if u want to pass more than 1 conditional.");
     }
 }
 
@@ -47,6 +65,10 @@ public class CsvReaderClass
             var validator = new CsvReadQueryValidator();
             var result = validator.Validate(request);
             var temp = result.Errors;
+            if (!result.IsValid)
+            {
+                throw new Exception("Something is wrong with passed arguments.");
+            }
             foreach (var error in temp)
             {
                 var temp1 =error.ErrorMessage;
