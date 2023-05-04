@@ -76,7 +76,7 @@ public class CsvReaderClass
             var records = csvReader.GetRecords<OrderEntry>().ToList();
             IEnumerable<OrderEntry> results = new List<OrderEntry>();
 
-            //case for order
+            //case for order number
             if (!string.IsNullOrEmpty(request.OrderNumber) && (request.FromWhen is null && request.ToWhen is null) &&
                 request.ClientCodes!.Count==0)
             {
