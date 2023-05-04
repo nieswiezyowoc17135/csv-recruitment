@@ -16,6 +16,7 @@ public class Order
     [Required]
     [DataType(DataType.Date)]
     public DateTime OrderDate { get; set; }
+    [Required]
     [DataType(DataType.Date)]
     public DateTime ShipmentDate { get; set; }
     [Required]
