@@ -1,0 +1,12 @@
+﻿Number,ClientCode,ClientName,OrderDate,ShipmentDate,Quantity,Confirmed,Value
+"1","firstClient","Murphy",01.01.2022,23.11.2023,1,1,100.23
+"1","firstClient","Murphy",03.03.2022,23.11.2023,1,1,100.28
+"2","secondClient","Garcia",02.01.2022,24.11.2023,2,1,100.24
+"3","thirdClient","Patel",03.01.2022,25.11.2023,3,1,100.25
+"4","fourthClient","Kim",04.01.2022,,4,1,100.26
+"5","fifthClient","Robson",05.01.2022,27.11.2023,5,1,100.27
+"6","sixthClient","Singh",06.01.2022,28.11.2023,6,0,100.28
+"7","seventhClient","Torres",07.01.2022,,7,0,100.29
+"8","eighthClient","Schmidt",08.01.2022,30.11.2023,8,0,100.30
+"9","ninthClient","Chan",09.01.2022,01.12.2023,9,0,100.31
+"10","tenthClient","Ibrahim",10.01.2022,02.12.2023,10,0,100.32

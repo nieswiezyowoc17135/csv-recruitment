@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using csv_project.Features.Query;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace csv_project.Controllers
 {
@@ -6,24 +8,16 @@ namespace csv_project.Controllers
     [ApiController]
     public class CsvController : ControllerBase
     {
+        private readonly IMediator _mediator;
+        public CsvController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
         [HttpGet]
         public async Task<IActionResult> GetOrders(string? order, DateTime? fromWhen, DateTime? toWhen, [FromQuery(Name = "clientCodes")] List<string>? clientCodes)
         {
-            if (order != null && fromWhen==null && toWhen==null && clientCodes!.Count==0)
-            {
-                var temp = "siemka";
-            } else if(fromWhen != null && toWhen!=null && order==null && clientCodes!.Count == 0)
-            {
-                var temp = "siemka";
-            } else if(clientCodes!.Count >= 1 && order==null && fromWhen == null && toWhen == null)
-            {
-                var temp = "siemka";
-            } else if (order != null && fromWhen != null && toWhen != null && clientCodes!.Count > 1)
-            {
-                var temp = "siemka";
-            }
-
-            return Ok();
+            var result = await _mediator.Send(new CsvReadQuery(order ?? null, fromWhen ?? null, toWhen ?? null, clientCodes ?? null));
+            return Ok(result);
         }
     }
 }
